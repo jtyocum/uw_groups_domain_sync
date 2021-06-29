@@ -1,0 +1,7 @@
+gws_base_url: https://groups.example/example/api
+gws_ca_cert: /path/to/ca.crt
+gws_client_cert: /path/to/client.crt
+gws_client_key: /path/to/client.key
+group_map:
+    my_uw_group1: my_local_group1
+    my_uw_group2: my_local_group2
