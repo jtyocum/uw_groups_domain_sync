@@ -45,8 +45,8 @@ def get_local_group_members(local_group: str) -> list:
     Get local group membership via NSS.
     """
 
-    r = subprocess.run(["getent", "group", local_group], capture_output=True, text=True)
-    members = r.stdout.strip().split(":")[3].split(",")
+    r = subprocess.run(["samba-tool", "group", "listmembers", local_group], capture_output=True, text=True)
+    members = r.stdout.splitlines()
     return members
 
 
