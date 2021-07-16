@@ -45,7 +45,11 @@ def get_local_group_members(local_group: str) -> list:
     Get local group membership via NSS.
     """
 
-    r = subprocess.run(["samba-tool", "group", "listmembers", local_group], capture_output=True, text=True)
+    r = subprocess.run(
+        ["samba-tool", "group", "listmembers", local_group],
+        capture_output=True,
+        text=True,
+    )
     members = r.stdout.splitlines()
     return members
 
@@ -61,8 +65,11 @@ def add_uw_group_members(
 
     group_members = ",".join(members)
 
+    headers = {"Content-type": "application/json"}
+
     r = requests.put(
         gws_base_url + "/group/" + uw_group + "/member/" + group_members,
+        headers=headers,
         verify=gws_ca_cert,
         cert=(gws_client_cert, gws_client_key),
     )
@@ -81,8 +88,11 @@ def remove_uw_group_members(
 
     group_members = ",".join(members)
 
+    headers = {"Content-type": "application/json"}
+
     r = requests.delete(
         gws_base_url + "/group/" + uw_group + "/member/" + group_members,
+        headers=headers,
         verify=gws_ca_cert,
         cert=(gws_client_cert, gws_client_key),
     )
